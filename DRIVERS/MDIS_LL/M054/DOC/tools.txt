@@ -1,0 +1,99 @@
+Program Description
+===================
+Thu Sep 27 14:46:17 MEST 2001
+ 
+Overview of all Programs
+------------------------
+
+m54_simp         - M54 example for simple motor movement
+m54_binin        - M54 example for binary inputs
+m54_binout       - M54 example for binary outputs
+m54_simpsig      - M54 example for simple motor movement with signals
+
+Program m54_simp
+----------------
+
+Usage:
+   m54_simp <device> <chan>
+
+Function:
+   M54 example for simple motor movement
+
+Options:
+   device       device name   
+   
+Description:
+   Simple example program for the M54 driver   
+   
+   Performs a simple motor movement without using interrupts/signals.   
+   Move from the current position 400000 pulses forward.   
+   During movement, all indications of the LM628 are displayed.   
+   
+   Uses hardcoded PID control, velocity and acceleration parameters    
+   that should be adapted for the actual motor in use.   
+   
+   This program does not use the binary inputs, outputs and the line break   
+   and glitch detection of the M54.   
+   
+Program m54_binin
+-----------------
+
+Usage:
+   m54_binin <device>
+
+Function:
+   M54 example for binary inputs
+
+Options:
+   device       device name   
+   
+Description:
+   Example program for binary inputs of the M54 driver    
+   
+   This program continously prints the state of the binary inputs. It also   
+   installs interrupts/signals for some of them.   
+   
+Program m54_binout
+------------------
+
+Usage:
+   m54_binout <device>
+
+Function:
+   M54 example for binary outputs
+
+Options:
+   device       device name   
+   
+Description:
+   Example program for binary outputs of the M54 driver    
+   
+   This simple example program stimulates the binary outputs of the M54   
+   
+Program m54_simpsig
+-------------------
+
+Usage:
+   m54_simpsig <device> <chan>
+
+Function:
+   M54 example for simple motor movement with signals
+
+Options:
+   device       device name   
+   
+Description:
+   Simple example program for the M54 driver using signals   
+   
+   Performs a simple motor movement using interrupts/signals.   
+   Move from the current position 400000 pulses forward.   
+   
+   For trajectory complete, positioning error and line break events,    
+   an interrupt/signal is installed.   
+   
+   Uses hardcoded PID control, velocity and acceleration parameters    
+   that should be adapted for the actual motor in use.   
+   
+   This program does not use the binary inputs, outputs and the    
+   glitch detection of the M54.   
+   

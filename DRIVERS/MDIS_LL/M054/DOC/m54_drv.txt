@@ -1,0 +1,469 @@
+Function Description
+====================
+Thu Sep 27 14:46:17 MEST 2001
+ 
+Overview of all Functions
+-------------------------
+
+M54_GetEntry           - Initialize driver's branch table 
+M54_Init               - Allocate and return low-level handle, initialize hardware 
+M54_Exit               - De-initialize hardware and clean up memory 
+M54_Read               - Read a value from the device 
+M54_Write              - Write a value to the device 
+M54_SetStat            - Set the driver status 
+M54_GetStat            - Get the driver status 
+M54_BlockRead          - Not implemented for M54 
+M54_BlockWrite         - Not implemented for M54 
+M54_Irq                - Interrupt service routine 
+M54_Info               - Get information about hardware and driver requirements 
+ 
+
+Function M54_GetEntry()
+-----------------------
+
+Syntax:
+    void M54_GetEntry( LL_ENTRY* drvP )
+
+Description:
+    Initialize driver's branch table
+
+Input:
+    ---
+
+Output:
+    drvP  pointer to the initialized branch table structure
+
+
+Function M54_Init()
+-------------------
+
+Syntax:
+    static int32 M54_Init(
+        DESC_SPEC       *descP,
+        OSS_HANDLE      *osHdl,
+        MACCESS         *ma,
+        OSS_SEM_HANDLE  *devSemHdl,
+        OSS_IRQ_HANDLE  *irqHdl,
+        LL_HANDLE       **_hP
+    )
+
+Description:
+    Allocate and return low-level handle, initialize hardware
+
+    The function
+     - checks the module ID of the M54
+     - initializes the Z8536 (all binary input interrupts are disabled)
+     - sets the binary outputs to zero
+     - resets the LM628
+
+    The following descriptor keys are used:
+
+    Descriptor key        Default          Range
+    --------------------  ---------------  -------------
+    DEBUG_LEVEL_DESC      OSS_DBG_DEFAULT  see dbg.h
+    DEBUG_LEVEL           OSS_DBG_DEFAULT  see dbg.h
+    ID_CHECK              1                0..1 
+
+Input:
+    descSpec   pointer to descriptor data
+    osHdl      oss handle
+    ma         hardware access handle
+    devSemHdl  device semaphore handle
+    irqHdl     irq handle
+
+Output:
+    _hP        pointer to low-level driver handle
+    return     success (0) or error code
+
+
+Function M54_Exit()
+-------------------
+
+Syntax:
+    static int32 M54_Exit(
+       LL_HANDLE    **_hP
+    )
+
+Description:
+    De-initialize hardware and clean up memory
+
+    The function 
+    - sets the binary outputs to zero
+    - disables all interrupts
+    - removes all handles
+
+Input:
+    _hP       pointer to low-level driver handle
+
+Output:
+    return    success (0) or error code
+
+
+Function M54_Read()
+-------------------
+
+Syntax:
+    static int32 M54_Read(
+        LL_HANDLE *_h,
+        int32 ch,
+        int32 *valueP
+    )
+
+Description:
+    Read a value from the device
+
+    For channel 0 (LM628), this function returns ERR_LL_ILL_DIR.
+
+    For channel 1 (binary inputs), this function returns the current state
+    of the binary inputs:
+        bit 0 = binary input 0
+        bit 1 = binary input 1
+        ...
+        bit 7 = binary input 7
+
+    For channel 2 (binary outputs), this function returns the current value
+    of the binary output latch:
+        bit 0 = binary output O8
+        bit 1 = binary output O9
+
+Input:
+    h        low-level handle
+    ch       current channel
+
+Output:
+    valueP   read value
+    return   success (0) or error code
+
+
+Function M54_Write()
+--------------------
+
+Syntax:
+    static int32 M54_Write(
+        LL_HANDLE *_h,
+        int32 ch,
+        int32 value
+    )
+
+Description:
+    Write a value to the device
+
+    For channel 0 (LM628) and channel 1 (binary inputs), this function 
+    returns ERR_LL_ILL_DIR.
+
+    For channel 2 (binary outputs), this function writes bits 0 and 1 of
+    <value> to binary outputs O8 and O9, respectively.
+
+Input:
+    h        low-level handle
+    ch       current channel
+    value    value to write 
+
+Output:
+    return   success (0) or error code
+
+
+Function M54_SetStat()
+----------------------
+
+Syntax:
+    static int32 M54_SetStat(
+        LL_HANDLE *_h,
+        int32  code,
+        int32  ch,
+        int32  value
+    )
+
+Description:
+    Set the driver status
+
+    The following status codes are supported:
+
+    Code                     Description                 Values
+    -------------------      --------------------------  ----------
+    M54_LM628_PERFORM_CMD    perform a LM628 cmd         M_SG_BLOCK
+    M54_BININ_EDGE_CONFIG    sensitive edges bin. inputs 0x0000..0xFFFF
+    M54_QUAD_COMP            glitch detect threshold     0x00..0xFF
+    M54_POLARITY             define LM628 output polarity 0/1
+    M_MK_IRQ_ENABLE          interrupt enable            0/1
+    M54_SETSIG_LM628         install signal for LM628    signal number
+    M54_CLRSIG_LM628         remove signal for LM628     don't care
+    M54_SETSIG_BININ_EDGE    install signal for bin inp  signal number
+    M54_CLRSIG_BININ_EDGE    remove signal for bin inp   don't care
+    M54_SETSIG_LINE_BREAK    install signal for line bk  signal number
+    M54_CLRSIG_LINE_BREAK    remove signal for line bk   don't care
+    M54_SETSIG_GLITCH        install signal for glitch   signal number
+    M54_CLRSIG_GLITCH        remove signal for glitch    don't care
+    M_LL_DEBUG_LEVEL         driver debug level          see dbg.h
+
+    M54_LM628_PERFORM_CMD issues a command to the LM628, where all data bytes
+     are sent TO the LM628. It is heavily used by the M54_API functions. 
+     This is a block setstat call. <value> must point to an M_SG_BLOCK 
+     structure, where blk.data must point to an M54_LM628_CMDBLOCK struct, and
+     blk.size/2-1 specifies the number of 16-bit data words sent to the LM628.
+
+    M54_BININ_EDGE_CONFIG defines the sensitive edges of the binary inputs
+     that cause an interrupt. <value> is comprised of eight 2-bit fields:
+      bits 1..0   = binary input 0
+      bits 3..2   = binary input 1
+      ...
+      bits 15..14 = binary input 7
+     Each field can be set to 
+      - M54_IENOFF (no interrupts),
+      - M54_IEALL (interrupt on both edges)
+      - M54_IELH  (interrupt on low-to-high transition)
+      - M54_IEHL  (interrupt on high-to-low transition)
+
+    M54_QUAD_COMP controls the threshold for the glitch detection logic (see
+     hardware manual). This call must be issued again after a glitch was detected
+     in order to reactivate the glitch detection logic.
+
+    M54_POLARITY controls the output polarity of the M54:
+     value==0: don't invert polarity
+     value==1: invert polarity
+
+    M_MK_IRQ_ENABLE enables (value==1) or disables (value==0) 
+     interrupts on the M54 globally. This call is handled by the MDIS kernel
+     too, therefore it will perform actions also on the carrier board.
+
+    M54_SETSIG_LM628 installs a signal that is sent when the LM628 issues
+     an interrupt. This call does not enable interrupts. This must be done
+     using API function M54_LmMaskInterrupts and setstat M_MK_IRQ_ENABLE.
+
+    M54_CLRSIG_LM628 removes signal M54_SETSIG_LM628.
+
+    M54_SETSIG_BININ_EDGE installs a signal that is sent when the state of
+     the binary inputs change as defined by M54_BININ_EDGE_CONFIG.
+     This call does not enable interrupts. This must be done using
+     setstat M54_BININ_EDGE_CONFIG and M_MK_IRQ_ENABLE.
+
+    M54_CLRSIG_BININ_EDGE removes signal M54_SETSIG_BININ_EDGE.
+
+    M54_SETSIG_LINE_BREAK installs a signal that is sent when a line break
+     on the quadrature encoder signals has been detected. This call 
+     implicitly enables line break interrupts.
+
+    M54_CLRSIG_LINE_BREAK removes signal M54_SETSIG_LINE_BREAK and disables
+     the line break interrupt.
+
+    M54_SETSIG_GLITCH installs a signal that is sent when a glitch
+     on the quadrature encoder signals has been detected. This call 
+     implicitly enables glitch interrupts. Note that after a glitch has
+     been detected, the glitch detection logic must be re-enabled by setstat
+     M54_QUAD_COMP.
+
+    M54_CLRSIG_GLITCH removes signal M54_SETSIG_GLITCH and disables the glitch
+     interrupt.
+
+Input:
+    h          low-level handle
+    code       status code
+    ch         current channel
+    value      data or
+               pointer to block data structure (M_SG_BLOCK)  (*)
+    (*) = for block status codes
+
+Output:
+    return     success (0) or error code
+
+
+Function M54_GetStat()
+----------------------
+
+Syntax:
+    static int32 M54_GetStat(
+        LL_HANDLE *_h,
+        int32  code,
+        int32  ch,
+        int32  *valueP
+    )
+
+Description:
+    Get the driver status
+
+    The following status codes are supported:
+
+    Code                    Description                 Values
+    -------------------      --------------------------  ----------
+    M54_LM628_PERFORM_CMD   perform a LM628 cmd          M_SG_BLOCK
+    M54_LM_STATUS           read LM628 status byte       see text
+    M54_LM_INT_REASON       interrupt cause              see text
+    M54_BININ_EDGE_CONFIG   binary input edges           0x0000..0xffff
+    M54_QUAD_COMP           glitch detect threshold      0x00..0xFF
+    M54_POLARITY            LM628 output polarity        0/1
+    M_LL_DEBUG_LEVEL        driver debug level           see dbg.h
+    M_LL_CH_NUMBER          number of channels           3
+    M_LL_CH_DIR             direction of curr. chan.     M_CH_IN/OUT
+    M_LL_CH_LEN             length of curr. ch. [bits]   16/8/2
+    M_LL_CH_TYP             description of curr. chan.   M_CH_BINARY
+    M_LL_ID_CHECK           EEPROM is checked            0..1
+    M_LL_ID_SIZE            EEPROM size [bytes]          128
+    M_LL_BLK_ID_DATA        EEPROM raw data              -
+    M_MK_BLK_REV_ID         ident function table ptr     -
+
+    M54_LM628_PERFORM_CMD issues a command to the LM628, where all data bytes
+    are read FROM the LM628. It is heavily used by the M54_API functions. 
+    This is a block setstat call. <valueP> must point to an M_SG_BLOCK 
+    structure, where blk.data must point to an M54_LM628_CMDBLOCK struct, and
+    blk.size/2-1 specifies the number of 16-bit data words read from the 
+    LM628.
+
+    M54_LM_STATUS is used by API function M54_LmReadStatus and returns 
+    the status byte of the LM628 plus the M54-specific status bits 
+    M54_STAT_LINE_BREAK and M54_STAT_GLITCH.
+
+    M54_LM_INT_REASON will return accumulated LM628 interrupt flags that
+    have occurred since the last call to M54_LM_INT_REASON. It also includes
+    the additional M54_STAT_LINE_BREAK and M54_STAT_GLITCH flags. The internal
+    flag accumulator is cleared by this call. Only interrupts that have
+    been enabled through the MSKI command will appear in the return value.
+
+    M54_BININ_EDGE_CONFIG returns the value that has been defined by setstat
+    M54_BININ_EDGE_CONFIG.
+
+    M54_QUAD_COMP returns the value that has been defined by setstat
+    M54_QUAD_COMP.
+
+    M54_POLARITY returns the current polarity of the LM628 output circuit.
+    0 = not inverted
+    1 = inverted
+
+Input:
+    h          low-level handle
+    code       status code
+    ch         current channel
+    valueP     pointer to block data structure (M_SG_BLOCK)  (*) 
+    (*) = for block status codes
+
+Output:
+    valueP     data pointer or
+               pointer to block data structure (M_SG_BLOCK)  (*) 
+    return     success (0) or error code
+    (*) = for block status codes
+
+
+Function M54_BlockRead()
+------------------------
+
+Syntax:
+    static int32 M54_BlockRead(
+         LL_HANDLE *_h,
+         int32     ch,
+         void      *buf,
+         int32     size,
+         int32     *nbrRdBytesP
+    )
+
+Description:
+    Not implemented for M54
+
+Input:
+    h            low-level handle
+    ch           current channel
+    buf          data buffer
+    size         data buffer size
+
+Output:
+    nbrRdBytesP  number of read bytes
+    return       always ERR_LL_ILL_FUNC
+
+
+Function M54_BlockWrite()
+-------------------------
+
+Syntax:
+    static int32 M54_BlockWrite(
+         LL_HANDLE *h,
+         int32     ch,
+         void      *buf,
+         int32     size,
+         int32     *nbrWrBytesP
+    )
+
+Description:
+    Not implemented for M54
+
+Input:
+    h        low-level handle
+    ch           current channel
+    buf          data buffer
+    size         data buffer size
+
+Output:
+    nbrWrBytesP  number of written bytes
+    return       always ERR_LL_ILL_FUNC
+
+
+Function M54_Irq()
+------------------
+
+Syntax:
+    static int32 M54_Irq(
+       LL_HANDLE *_h
+    )
+
+Description:
+    Interrupt service routine
+
+    The interrupt is triggered when
+    - the LM628 interrupts.
+    - the Z8636 interrupts due to
+       - binary input changes (PA0..7)
+       - a line break (PB7)
+       - a glitch (PB6) 
+
+Input:
+    h        low-level handle
+
+Output:
+    return   LL_IRQ_DEVICE    irq caused by device
+             LL_IRQ_DEV_NOT   irq not caused by device
+
+
+Function M54_Info()
+-------------------
+
+Syntax:
+    static int32 M54_Info(
+       int32  infoType,
+       ...
+    )
+
+Description:
+    Get information about hardware and driver requirements
+
+    The following info codes are supported:
+
+    Code                      Description
+    ------------------------  -----------------------------
+    LL_INFO_HW_CHARACTER      hardware characteristics
+    LL_INFO_ADDRSPACE_COUNT   nr of required address spaces
+    LL_INFO_ADDRSPACE         address space information
+    LL_INFO_IRQ               interrupt required
+    LL_INFO_LOCKMODE          process lock mode required
+
+    The LL_INFO_HW_CHARACTER code returns all address and 
+    data modes (ORed) which are supported by the hardware
+    (MDIS_MAxx, MDIS_MDxx).
+
+    The LL_INFO_ADDRSPACE_COUNT code returns the number
+    of address spaces used by the driver.
+
+    The LL_INFO_ADDRSPACE code returns information about one
+    specific address space (MDIS_MAxx, MDIS_MDxx). The returned 
+    data mode represents the widest hardware access used by 
+    the driver.
+
+    The LL_INFO_IRQ code returns whether the driver supports an
+    interrupt routine (TRUE or FALSE).
+
+    The LL_INFO_LOCKMODE code returns which process locking
+    mode the driver needs (LL_LOCK_xxx).
+
+Input:
+    infoType     info code
+    ...          argument(s)
+
+Output:
+    return       success (0) or error code
+

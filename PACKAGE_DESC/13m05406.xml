@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by Klaus Popp (MEN Mikro Elektronik GmbH) -->
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="packagedesc.xsd">
+	<name>13m05406</name>
+	<description>MDIS5 driver package for MEN M54 M-Module</description>
+	<date>2015-02-18</date>
+	<revision>2.1</revision>
+	<docroot>LIBSRC/M54_API/DOC/functions.html</docroot>
+	<modellist>
+		<model>
+			<hwname>M54</hwname>
+			<description>DC Motor Controller with LM628</description>
+			<devtype>MDIS</devtype>
+			<autoid>
+				<mmoduleid>0x53460036</mmoduleid>
+			</autoid>
+			<busif>M-Module</busif>
+		</model>
+	</modellist>
+	<settinglist>
+		<setting>
+			<name>ID_CHECK</name>
+			<description>Define wether M-Module ID-PROM is checked</description>
+			<type>U_INT32</type>
+			<defaultvalue>1</defaultvalue>
+			<choises>
+				<choise>
+					<value>1</value>
+					<description>enable</description>
+				</choise>
+				<choise>
+					<value>0</value>
+					<description>disable -- ignore IDPROM</description>
+				</choise>
+			</choises>
+		</setting>
+	</settinglist>
+	<swmodulelist>
+		<swmodule>
+			<name>m54</name>
+			<description>Driver for M54</description>
+			<type>Low Level Driver</type>
+			<makefilepath>M054/DRIVER/COM/driver.mak</makefilepath>
+		</swmodule>
+		<swmodule>
+			<name>m54_api</name>
+			<description>API library for M54 driver</description>
+			<type>User Library</type>
+			<makefilepath>M54_API/COM/library.mak</makefilepath>
+		</swmodule>
+		<swmodule>
+			<name>m54_simp</name>
+			<description>Simple example program for the M54 driver</description>
+			<type>Driver Specific Tool</type>
+			<makefilepath>M054/EXAMPLE/M54_SIMP/COM/program.mak</makefilepath>
+		</swmodule>
+		<swmodule>
+			<name>m54_simpsig</name>
+			<description>Simple example program for the M54 driver using signals</description>
+			<type>Driver Specific Tool</type>
+			<makefilepath>M054/EXAMPLE/M54_SIMPSIG/COM/program.mak</makefilepath>
+		</swmodule>
+		<swmodule>
+			<name>m54_binin</name>
+			<description>Example program for binary inputs of the M54 driver</description>
+			<type>Driver Specific Tool</type>
+			<makefilepath>M054/EXAMPLE/M54_BININ/COM/program.mak</makefilepath>
+		</swmodule>
+		<swmodule>
+			<name>m54_binout</name>
+			<description>Example program for binary outputs of the M54 driver</description>
+			<type>Driver Specific Tool</type>
+			<makefilepath>M054/EXAMPLE/M54_BINOUT/COM/program.mak</makefilepath>
+		</swmodule>
+		<swmodule internal="true">
+			<name>m54_test</name>
+			<description>Test program to verify M54 MDIS4 driver and API</description>
+			<type>Driver Specific Tool</type>
+			<makefilepath>M054/TEST/M54_TEST/COM/program.mak</makefilepath>
+		</swmodule>
+	</swmodulelist>
+</package>
