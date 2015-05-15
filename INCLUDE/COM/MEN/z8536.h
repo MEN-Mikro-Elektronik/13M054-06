@@ -116,7 +116,7 @@
 #define IE		0x40	/* rd: irq enable */
 #define IP		0x20	/* rd: irq pending */
 #define CLR_IPS	0x20	/* wr: clear IP+IUS */
-#define SET_IP	0x80	/* wr: set IP */
+#define SET_M54IP	0x80	/* wr: set IP */
 #define CLR_IP	0xa0	/* wr: clear IP */
 #define SET_IE	0xc0	/* wr: set IE */
 #define CLR_IE	0xe0	/* wr: clear IE */
