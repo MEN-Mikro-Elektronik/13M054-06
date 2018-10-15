@@ -39,7 +39,6 @@
  *---------------------------------------------------------------------------
  * (c) Copyright 2001 by MEN mikro elektronik GmbH, Nuernberg, Germany 
  ****************************************************************************/
-static const char RCSid[]="$Id: m54_simp.c,v 1.3 2015/02/18 16:20:05 MRoth Exp $";
 
 #include <stdio.h>
 #include <string.h>

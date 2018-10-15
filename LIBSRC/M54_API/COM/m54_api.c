@@ -95,7 +95,7 @@ static int32 Lm628Exec(			/* nodoc */
 	if( dir == CMD_READ )
 		rv = M_getstat( path, M54_LM628_PERFORM_CMD, (int32 *)&blk );
 	else
-		rv = M_setstat( path, M54_LM628_PERFORM_CMD, (int32)&blk );
+		rv = M_setstat( path, M54_LM628_PERFORM_CMD, (INT32_OR_64)&blk );
 
 	return rv;
 }

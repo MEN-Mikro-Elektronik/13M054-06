@@ -48,8 +48,6 @@
  * (c) Copyright 2001 by MEN Mikro Elektronik GmbH, Nuernberg, Germany
  ****************************************************************************/
 
-static const char RCSid[]="$Id: m54_drv.c,v 1.5 2015/02/18 16:20:03 MRoth Exp $";
-
 #ifdef M54_SW				/* swapped variant */
 #	define MAC_BYTESWAP
 #	define ID_SW	

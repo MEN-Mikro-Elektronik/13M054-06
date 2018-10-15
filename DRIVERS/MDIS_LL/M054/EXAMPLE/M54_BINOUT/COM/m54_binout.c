@@ -31,7 +31,6 @@
  *---------------------------------------------------------------------------
  * (c) Copyright 2001 by MEN mikro elektronik GmbH, Nuernberg, Germany 
  ****************************************************************************/
-static const char RCSid[]="$Id: m54_binout.c,v 1.3 2015/02/18 16:20:12 MRoth Exp $";
 
 #include <stdio.h>
 #include <string.h>
