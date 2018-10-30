@@ -21,32 +21,23 @@
  *     Switches: _ONE_NAMESPACE_PER_DRIVER_
  *				 M54_SW				- use swapped register access
  *				 _LITTLE_ENDIAN_, _BIG_ENDIAN_
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: m54_drv.c,v $
- * Revision 1.5  2015/02/18 16:20:03  MRoth
- * R: not compatible to MDIS5 (no 64bit support)
- * M: ported to MDIS5 according porting guide rev. 0.10
- *
- * Revision 1.4  2004/04/19 15:56:34  cs
- * Bugfix: switched parameters 2 and 3 in call of M54_SetStat in M54_Init
- * Replaced all OSS_IrqMask/OSS_IrqUnMask with OSS_IrqMaskR/OSS_IrqRestore
- * Minor modifications for MDIS4/2004 conformity
- *       type casts
- *
- * Revision 1.3  2001/09/28 08:41:46  kp
- * comments reworked by Susanne
- * eliminated VisualC compiler warnings
- *
- * Revision 1.2  2001/09/26 10:40:12  kp
- * first paramter to OSS_IrqMask/OSS_IrqUnMask corrected
- *
- * Revision 1.1  2001/09/25 16:27:34  kp
- * Initial Revision
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2001 by MEN Mikro Elektronik GmbH, Nuernberg, Germany
  ****************************************************************************/
+/*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #ifdef M54_SW				/* swapped variant */
 #	define MAC_BYTESWAP

@@ -16,25 +16,23 @@
  *     Required: libraries: mdis_api
  *     Switches: -
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: m54_binin.c,v $
- * Revision 1.4  2015/02/18 16:20:10  MRoth
- * R: not compatible to MDIS5 (no 64bit support)
- * M: ported to MDIS5 according porting guide rev. 0.10
- *
- * Revision 1.3  2004/04/19 15:56:47  cs
- * eliminated VXWorks compiler warnings (type casts in printf calls)
- *
- * Revision 1.2  2001/09/28 08:49:14  kp
- * fixed typo in header
- *
- * Revision 1.1  2001/09/25 16:27:45  kp
- * Initial Revision
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2001 by MEN mikro elektronik GmbH, Nuernberg, Germany 
  ****************************************************************************/
+/*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include <stdio.h>
 #include <string.h>

@@ -11,24 +11,23 @@
  *
  *     Switches: ---
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: z8536.h,v $
- * Revision 2.4  2003/03/24 10:00:12  dschmidt
- * bugfix: CLR_IPS now 0x20
- *
- * Revision 2.3  2000/05/11 13:13:28  Schmidt
- * some defines added
- *
- * Revision 2.2  1999/08/03 16:42:08  Schmidt
- * cosmetics, Px0..7 defines added
- *
- * Revision 2.1  1999/06/23 12:03:27  Schmidt
- * Initial Revision
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 1999 by MEN mikro elektronik GmbH, Nuernberg, Germany
  ****************************************************************************/
+/*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #ifndef _Z8536_H
 #define _Z8536_H
