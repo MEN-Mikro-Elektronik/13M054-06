@@ -74,7 +74,7 @@
 		</swmodule>
 		<swmodule internal="true">
 			<name>m54_test</name>
-			<description>Test program to verify M54 MDIS4 driver and API</description>
+			<description>Test program to verify M54 MDIS5 driver and API</description>
 			<type>Driver Specific Tool</type>
 			<makefilepath>M054/TEST/M54_TEST/COM/program.mak</makefilepath>
 		</swmodule>
