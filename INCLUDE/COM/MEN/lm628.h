@@ -3,8 +3,6 @@
  *         Name: lm628.h
  *
  *       Author: kp
- *        $Date: 2001/09/26 08:03:30 $
- *    $Revision: 2.1 $
  * 
  *  Description: Definitions for the LM628 DC motor controller
  *                      

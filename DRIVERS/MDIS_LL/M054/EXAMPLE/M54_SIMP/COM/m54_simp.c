@@ -5,8 +5,6 @@
  ****************************************************************************
  *
  *       Author: kp
- *        $Date: 2015/02/18 16:20:05 $
- *    $Revision: 1.3 $
  *
  *  Description: Simple example program for the M54 driver
  *
@@ -49,6 +47,8 @@
 #include <MEN/m54_drv.h>
 #include <MEN/m54_api.h>
 #include <MEN/lm628.h>
+
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*--------------------------------------+
 |   DEFINES                             |

@@ -3,8 +3,6 @@
  *         Name: z8536.h
  *
  *       Author: ds
- *        $Date: 2003/03/24 10:00:12 $
- *    $Revision: 2.4 $
  *
  *  Description: Header file for Z8536 chip
  *               - Z8536 register defines

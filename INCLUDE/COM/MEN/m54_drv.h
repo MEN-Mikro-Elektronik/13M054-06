@@ -3,8 +3,6 @@
  *         Name: m54_drv.h
  *
  *       Author: kp
- *        $Date: 2015/02/18 16:20:20 $
- *    $Revision: 2.2 $
  *
  *  Description: Header file for M54 driver
  *               - M54 specific status codes

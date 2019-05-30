@@ -3,8 +3,6 @@
  *         Name: m54_api.h
  *
  *       Author: kp
- *        $Date: 2015/02/18 16:20:22 $
- *    $Revision: 2.2 $
  * 
  *  Description: M54_API header file
  *

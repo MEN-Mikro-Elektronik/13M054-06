@@ -5,8 +5,6 @@
  ****************************************************************************
  *  
  *       Author: kp
- *        $Date: 2015/02/18 16:20:10 $
- *    $Revision: 1.4 $
  *
  *  Description: Example program for binary inputs of the M54 driver 
  *
@@ -40,6 +38,8 @@
 #include <MEN/mdis_api.h>
 #include <MEN/usr_oss.h>
 #include <MEN/m54_drv.h>
+
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*--------------------------------------+
 |   DEFINES                             |

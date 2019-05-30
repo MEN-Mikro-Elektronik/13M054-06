@@ -5,8 +5,6 @@
  ****************************************************************************
  *  
  *       Author: kp
- *        $Date: 2015/02/18 16:20:08 $
- *    $Revision: 1.4 $
  *
  *  Description: Simple example program for the M54 driver using signals
  *
@@ -51,6 +49,8 @@
 #include <MEN/m54_drv.h>
 #include <MEN/m54_api.h>
 #include <MEN/lm628.h>
+
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*--------------------------------------+
 |   DEFINES                             |

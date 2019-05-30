@@ -5,8 +5,6 @@
  ****************************************************************************
  *
  *       Author: kp
- *        $Date: 2015/02/18 16:20:15 $
- *    $Revision: 1.4 $
  *
  *  Description: Test program to verify M54 MDIS5 driver and API
  *
@@ -51,7 +49,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-static const char RCSid[]="$Id: m54_test.c,v 1.4 2015/02/18 16:20:15 MRoth Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -64,6 +61,8 @@ static const char RCSid[]="$Id: m54_test.c,v 1.4 2015/02/18 16:20:15 MRoth Exp $
 #include <MEN/m54_drv.h>
 #include <MEN/m54_api.h>
 #include <MEN/lm628.h>
+
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*--------------------------------------+
 |   DEFINES                             |
@@ -141,7 +140,7 @@ static void usage(void)
 	printf("                 don't combine test with other tests\n");
 	printf("  -n=<runs>    number of runs through all tests [1]\n");
 	printf("\n");
-	printf("(c) 2001 by MEN mikro elektronik GmbH\n\n");
+	printf("Copyright (c) 2001-2019, MEN Mikro Elektronik GmbH\n%s\n", IdentString);
 }
 
 static void printmsg( int level, char *fmt, ... )

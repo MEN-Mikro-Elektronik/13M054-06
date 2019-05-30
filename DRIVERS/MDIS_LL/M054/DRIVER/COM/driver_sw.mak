@@ -1,8 +1,6 @@
 #***************************  M a k e f i l e  *******************************
 #
 #         Author: kp
-#          $Date: 2004/04/19 15:56:31 $
-#      $Revision: 1.3 $
 #
 #    Description: Makefile definitions for the M54 driver (swapped variant)
 #
@@ -23,8 +21,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 MAK_NAME=m54_sw
+# the next line is updated during the MDIS installation
+STAMPED_REVISION="13M054-06_02_03-6-ga4fbaab-dirty_2019-05-29"
+
+DEF_REVISION=MAK_REVISION=$(STAMPED_REVISION)
 
 MAK_SWITCH=$(SW_PREFIX)MAC_MEM_MAPPED\
+		$(SW_PREFIX)$(DEF_REVISION) \
 		 $(SW_PREFIX)M54_SW
 
 MAK_LIBS=$(LIB_PREFIX)$(MEN_LIB_DIR)/desc$(LIB_SUFFIX)	\

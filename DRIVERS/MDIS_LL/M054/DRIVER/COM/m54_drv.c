@@ -4,8 +4,6 @@
  *      Project: M54 module driver (MDIS5)
  *
  *       Author: kp
- *        $Date: 2015/02/18 16:20:03 $
- *    $Revision: 1.5 $
  *
  *  Description: Low-level driver for M54 M-Modules
  *
@@ -59,6 +57,8 @@
 #include <MEN/z8536.h>    	/* Z8536 definitions			  */
 #include <MEN/ll_entry.h>   /* low-level driver branch table  */
 #include <MEN/m54_drv.h>    /* driver definitions		      */
+
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*-----------------------------------------+
 |  DEFINES                                 |
