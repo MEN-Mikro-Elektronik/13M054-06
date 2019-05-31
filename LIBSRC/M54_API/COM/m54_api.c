@@ -40,7 +40,6 @@
 #include <MEN/lm628.h>
 #include <MEN/m54_drv.h>
 
-static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*--------------------------------------+
 |   DEFINES                             |

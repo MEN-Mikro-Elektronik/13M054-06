@@ -58,7 +58,6 @@
 #include <MEN/ll_entry.h>   /* low-level driver branch table  */
 #include <MEN/m54_drv.h>    /* driver definitions		      */
 
-static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*-----------------------------------------+
 |  DEFINES                                 |
