@@ -160,6 +160,8 @@ typedef struct {
 
 } M54_HANDLE;
 
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
+
 /*-----------------------------------------+
 |  PROTOTYPES                              |
 +-----------------------------------------*/
@@ -1335,7 +1337,7 @@ static int32 M54_Info(
  ****************************************************************************/
 static char* Ident( void )	/* nodoc */
 {
-    return( "M54 - M54 low level driver: $Id: m54_drv.c,v 1.5 2015/02/18 16:20:03 MRoth Exp $" );
+    return( (char*) IdentString );
 }
 
 /********************************* Cleanup **********************************
