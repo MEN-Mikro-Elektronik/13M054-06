@@ -3,8 +3,8 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="packagedesc.xsd">
 	<name>13m05406</name>
 	<description>MDIS5 driver package for MEN M54 M-Module</description>
-	<date>2015-02-18</date>
-	<revision>2.1</revision>
+	<date>2019-06-03</date>
+	<revision>13M054-06_02_03-9-gb32703a</revision>
 	<docroot>LIBSRC/M54_API/DOC/functions.html</docroot>
 	<modellist>
 		<model>
