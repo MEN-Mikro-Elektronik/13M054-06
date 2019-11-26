@@ -20,7 +20,7 @@
  *				 M54_SW				- use swapped register access
  *				 _LITTLE_ENDIAN_, _BIG_ENDIAN_
  *---------------------------------------------------------------------------
- * Copyright (c) 2001-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2001-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
 /*
 * This program is free software: you can redistribute it and/or modify

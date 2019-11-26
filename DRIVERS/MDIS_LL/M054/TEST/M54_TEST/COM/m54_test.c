@@ -32,7 +32,7 @@
  *     Switches: -
  *
  *---------------------------------------------------------------------------
- * Copyright (c) 2001-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2001-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
 /*
 * This program is free software: you can redistribute it and/or modify
@@ -140,7 +140,7 @@ static void usage(void)
 	printf("                 don't combine test with other tests\n");
 	printf("  -n=<runs>    number of runs through all tests [1]\n");
 	printf("\n");
-	printf("Copyright (c) 2001-2019, MEN Mikro Elektronik GmbH\n%s\n", IdentString);
+	printf("Copyright 2001-2019, MEN Mikro Elektronik GmbH\n%s\n", IdentString);
 }
 
 static void printmsg( int level, char *fmt, ... )
